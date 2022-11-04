@@ -19,4 +19,18 @@ class PhotosController < ApplicationController
     #render({ :template => "photo_templates/delete.html.erb" })
     redirect_to("/photos")
   end
+
+  def insert
+    image = params.fetch("query_image")
+    caption = params.fetch("query_caption")
+    id = params.fetch("query_id")
+
+    new_photo = Photo.new
+    new_photo.image = image
+    new_photo.caption = caption
+    new_photo.owner_id = id
+
+    new_photo.save
+    redirect_to("/photos/" + new_photo.id.to_s)
+  end
 end
